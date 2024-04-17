@@ -1,0 +1,12 @@
+{
+  "appname": "Pierre.app",
+  "description": "a tiny website by Pierre",
+  "commun": {
+    "googleplay": "Google Play"
+  },
+  "pages": {
+    "home": {
+      "title": "Home"
+    }
+  }
+}
