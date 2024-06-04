@@ -1,19 +1,17 @@
-import { Button, Grid, Paper, SvgIcon, Typography } from "@mui/material";
+import { Box, Grid, Paper, SvgIcon, Typography } from "@mui/material";
 import { percent, px } from "csx";
 import { Application } from "src/models/Application";
 import { Colors } from "src/style/Colors";
 import { JsonLanguageBlock } from "./JsonLanguage";
 
-import { useTranslation } from "react-i18next";
 import { GooglePlayIcon } from "src/assets/google-play";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 interface Props {
   application: Application;
 }
 
 export const CardApplication = ({ application }: Props) => {
-  const { t } = useTranslation();
-
   const openNewTab = (link: string) => {
     window.open(link, "_blank");
   };
@@ -31,6 +29,7 @@ export const CardApplication = ({ application }: Props) => {
         alignItems: "center",
         border: "3px solid white",
         cursor: "pointer",
+        position: "relative",
       }}
       onClick={() => openNewTab(application.link)}
     >
@@ -66,12 +65,29 @@ export const CardApplication = ({ application }: Props) => {
             value={application.description}
           />
         </Grid>
-        {application.googleplay !== null && (
-          <Grid item>
-            <Button
-              fullWidth
-              variant="contained"
-              startIcon={<SvgIcon component={GooglePlayIcon} inheritViewBox />}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 5,
+            right: 5,
+            display: "flex",
+            gap: 1,
+          }}
+        >
+          {application.googleplay !== null && (
+            <Box
+              sx={{
+                p: px(8),
+                cursor: "pointer",
+                backgroundColor: Colors.white,
+                borderRadius: 2,
+                "&:hover": {
+                  backgroundColor: Colors.grey3,
+                },
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
@@ -79,10 +95,35 @@ export const CardApplication = ({ application }: Props) => {
                   openNewTab(application.googleplay);
               }}
             >
-              {t("commun.googleplay")}
-            </Button>
-          </Grid>
-        )}
+              <SvgIcon
+                component={GooglePlayIcon}
+                inheritViewBox
+                fontSize="large"
+              />
+            </Box>
+          )}
+          <Box
+            sx={{
+              p: px(8),
+              cursor: "pointer",
+              backgroundColor: Colors.white,
+              borderRadius: 2,
+              "&:hover": {
+                backgroundColor: Colors.grey3,
+              },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              openNewTab(application.github);
+            }}
+          >
+            <GitHubIcon fontSize="large" sx={{ color: Colors.black }} />
+          </Box>
+        </Box>
       </Grid>
     </Paper>
   );

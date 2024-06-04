@@ -8,4 +8,5 @@ export interface Application {
   description: JsonLanguage;
   link: string;
   googleplay: null | string;
+  github: string;
 }
